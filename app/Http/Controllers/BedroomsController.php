@@ -18,6 +18,16 @@ class BedroomsController extends Controller
 
     public function update(Request $request, Bedroom $bedroom){
 
+      $this->validate ( $request, [
+        'name' => 'required | min:10',
+        'status' => 'required',
+        'beds' => 'required | numeric'
+      ], [
+        'min' => 'El campo :attribute debe tener al menos 10 caracteres.',
+        'required' => 'El campo :attribute no puede ser vacío.',
+        'numeric' => 'El campo :attribute debe ser númerico.'
+      ]);
+
       $bedroom->update( $request->all() );
 
       return redirect('hotels/'. $bedroom->hotel_id);
@@ -35,15 +45,15 @@ class BedroomsController extends Controller
     public function store(Request $request, Hotel $hotel)
     {
 
-      // $this->validate ( $request, [
-      //   'name' => 'required | min:10',
-      //   'status' => 'required',
-      //   'beds' => 'required | numeric'
-      // ], [
-      //   'min' => 'El campo :attribute debe tener al menos 20 caracteres.',
-      //   'required' => 'El campo :attribute no puede ser vacío.',
-      //   'numeric' => 'El campo :attribute debe ser númerico.'
-      // ]);
+      $this->validate ( $request, [
+        'name' => 'required | min:10',
+        'status' => 'required',
+        'beds' => 'required | numeric'
+      ], [
+        'min' => 'El campo :attribute debe tener al menos 10 caracteres.',
+        'required' => 'El campo :attribute no puede ser vacío.',
+        'numeric' => 'El campo :attribute debe ser númerico.'
+      ]);
 
       $bedroom = new Bedroom();
 
@@ -53,7 +63,7 @@ class BedroomsController extends Controller
       $bedroom->beds = $request->beds;
 
       $bedroom->save();
-      
+
       return redirect('hotels/' . $hotel->id);
     }
 

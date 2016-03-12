@@ -11,18 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('hotels');
-});
-
-
-Route::get('hotels', 'HotelsController@index');
-Route::get('hotels/{hotel}', 'HotelsController@show');
-Route::get('bedrooms/{bedroom}/edit', 'BedroomsController@edit');
-Route::patch('hotels/{bedroom}', 'BedroomsController@update');
-Route::delete('bedrooms/{bedroom}', 'BedroomsController@delete');
-Route::post('hotels/{hotel}', 'BedroomsController@store');
-
 
 
 
@@ -38,5 +26,16 @@ Route::post('hotels/{hotel}', 'BedroomsController@store');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+  Route::get('/', function () {
+      return redirect('hotels');
+  });
+
+
+  Route::get('hotels', 'HotelsController@index');
+  Route::get('hotels/{hotel}', 'HotelsController@show');
+  Route::get('bedrooms/{bedroom}/edit', 'BedroomsController@edit');
+  Route::patch('hotels/{bedroom}', 'BedroomsController@update');
+  Route::delete('bedrooms/{bedroom}', 'BedroomsController@delete');
+  Route::post('hotels/{hotel}', 'BedroomsController@store');
 });

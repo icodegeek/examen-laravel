@@ -12,6 +12,7 @@
       <h1 style="text-align: center; margin-bottom: 30px;">Editar Habitación {{ $bedroom->id }}</h1>
 
       <form class="form-horizontal" action="http://localhost:8000/hotels/{{ $bedroom->id }}" method="post">
+        {{ csrf_field() }}
         {{ method_field('PATCH') }}
         <div class="form-group">
           <label for="name" class="control-label col-sm-2">Nombre:</label>
@@ -32,11 +33,17 @@
           </div>
         </div>
         <a href="{{ url('/') }}"><< Home</a>
-          <div class="form-group">
-            <div class="col-sm-offset-5">
-              <button type="submit" class="btn btn-primary">Actualizar datos</button>
-            </div>
+        @if ( count($errors) )
+          @foreach ($errors->all() as $error)
+            <span style="color: red; margin-bottom: 20px" class="help-block col-sm-offset-4"><i>{{ $error }}</i></span>
+          @endforeach
+        @endif
+        <hr>
+        <div class="form-group">
+          <div class="col-sm-offset-5">
+            <button type="submit" class="btn btn-primary">Actualizar datos</button>
           </div>
+        </div>
       </form>
 
     </div>

@@ -23,6 +23,7 @@
                 @foreach ($hotel->bedrooms as $bedroom)
                   <li>{{ $bedroom->name }}
                     <form style="display: inline" class="pull-right" action="{{ url('bedrooms/'.$bedroom->id) }}" method="post">
+                        {{ csrf_field() }}
                         {{ method_field('delete') }}
                       <button style="margin-left: 15px; margin-bottom: 5px;" type="submit" class="btn btn-xs btn-danger">
                           <span class="glyphicon glyphicon-trash"></span>
@@ -44,26 +45,32 @@
       <a href="{{ url('/') }}"><< Home</a>
       <h1 style="text-align: center; margin-bottom: 30px;">Añadir nueva habitación</h1>
       <form class="form-horizontal" action="{{ url( 'hotels/' . $hotel->id )}}" method="post">
+        {{ csrf_field() }}
         <div class="form-group">
           <label for="name" class="control-label col-sm-2">Nombre:</label>
           <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" placeholder="Nombre de la habitación">
+            <input type="text" name="name" class="form-control" placeholder="Nombre de la habitación" value="{{ old('name')}}">
           </div>
         </div>
         <div class="form-group">
           <label for="status" class="control-label col-sm-2">Estado:</label>
           <div class="col-sm-10">
-            <input type="text" name="status" class="form-control" placeholder="Estado de la habitación">
+            <input type="text" name="status" class="form-control" placeholder="Estado de la habitación" value="{{ old('status')}}">
           </div>
         </div>
         <div class="form-group">
           <label for="beds" class="control-label col-sm-2">Plazas:</label>
           <div class="col-sm-10">
-            <input type="text" name="beds" class="form-control" placeholder="Plazas de la habitación">
+            <input type="text" name="beds" class="form-control" placeholder="Plazas de la habitación" value="{{ old('beds') }}">
           </div>
         </div>
+        @if ( count($errors) )
+          @foreach ($errors->all() as $error)
+            <span style="color: red" class="help-block col-sm-offset-3"><i>{{ $error }}</i></span>
+          @endforeach
+        @endif
         <hr>
-          <button style="margin-bottom: 30px"type="submit" class="btn btn-primary col-sm-6 col-sm-offset-3">Guardar habitación</button>
+          <button style="margin-bottom: 30px"type="submit" class="btn btn-primary col-sm-7 col-sm-offset-2">Guardar habitación</button>
       </form>
     </div>
   </div>
